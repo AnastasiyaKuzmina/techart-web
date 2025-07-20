@@ -1,1 +1,1 @@
-# techart-web
+http://anastle1.beget.tech/
