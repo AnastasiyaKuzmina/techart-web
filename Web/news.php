@@ -2,9 +2,10 @@
 require "db.php";
 $page = $_GET["page"];
 $id = $_GET["id"];
-$news = R::dispense( 'news' );
-$news = R::load('news', $id);
-$title = $news->title;
+
+$db_news = mysqli_query($conn, "SELECT * FROM news WHERE id = " . $id);
+$news = mysqli_fetch_assoc($db_news);
+$title = $news['title'];
 ?>
 
 <!DOCTYPE html>
@@ -36,13 +37,13 @@ $title = $news->title;
             <div class="news__container">
                 <div class="news__item">
                     <div class="news__date">
-                        <p><?php echo date('d.m.Y', strtotime($news->date)); ?></p>
+                        <p><?php echo date('d.m.Y', strtotime($news['date'])); ?></p>
                     </div>
                     <div class="news__title">
-                        <h2><?php echo $news->announce; ?></h2>
+                        <h2><?php echo $news['announce']; ?></h2>
                     </div>
                     <div class="news__description">
-                        <p><?php echo $news->content; ?></p>
+                        <p><?php echo $news['content']; ?></p>
                     </div>
                     <a href="index.php?page=<?php echo $page; ?>">
                         <div class="news__button" id="button">
@@ -53,7 +54,7 @@ $title = $news->title;
                         </div>
                     </a>
                 </div>
-                <div class="news__image" style="background-image:url('img/news/<?php echo $news->image; ?>');">
+                <div class="news__image" style="background-image:url('img/news/<?php echo $news['image']; ?>');">
                 </div>
             </div>
             <div class="footer">

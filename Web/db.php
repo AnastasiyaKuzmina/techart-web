@@ -1,6 +1,7 @@
 <?php
-require "libs/rb-mysql.php";
+$conn = mysqli_connect('localhost', 'anastle1_news', 'HPKU%6OnaBmx', 'anastle1_news');
 
-R::setup('mysql:host=localhost;dbname=anastle1_news', 'anastle1_news', 'HPKU%6OnaBmx');
-
+if (!$conn) {
+    die('Ошибка подключения: ' . mysqli_error());
+}
 ?>

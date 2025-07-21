@@ -8,9 +8,10 @@ if(isset($_GET["page"])){
 
 $count = 4;
 
-$db_news = R::findAll('news', "ORDER BY `date` DESC");
+$db_news = mysqli_query($conn, "SELECT * FROM news ORDER BY date DESC");
 $news = array();
-foreach ($db_news as $row) {
+
+while ($row = $db_news->fetch_assoc()) {
     $news[] = $row;
 }
 
@@ -36,10 +37,10 @@ $page_count = floor(count($news) / $count);
             </div>
         </div>
         <div class="image-part">
-            <div class="image-part__block" style="background-image:url('img/news/<?php echo $first->image; ?>');">
+            <div class="image-part__block" style="background-image:url('img/news/<?php echo $first['image']; ?>');">
                 <div class="image-part__text">
-                    <h2><?php echo $first->title; ?></h2>
-                    <p><?php echo $first->announce; ?></p>
+                    <h2><?php echo $first['title']; ?></h2>
+                    <p><?php echo $first['announce']; ?></p>
                 </div>
             </div>
         </div>
@@ -52,15 +53,15 @@ $page_count = floor(count($news) / $count);
                 <?php if($i >= count($news)) break; ?>
                     <div class="news__item">
                         <div class="news__date">
-                            <p><?php echo date('d.m.Y', strtotime($news[$i]->date)); ?></p>
+                            <p><?php echo date('d.m.Y', strtotime($news[$i]['date'])); ?></p>
                         </div>
                         <div class="news__title">
-                            <h2><?php echo $news[$i]->title; ?></h2>
+                            <h2><?php echo $news[$i]['title']; ?></h2>
                         </div>
                         <div class="news__description">
-                            <p><?php echo $news[$i]->announce; ?></p>
+                            <p><?php echo $news[$i]['announce']; ?></p>
                         </div>
-                        <a href="news.php?id=<?php echo $news[$i]->id; ?>&page=<?php echo $page; ?>">
+                        <a href="news.php?id=<?php echo $news[$i]['id']; ?>&page=<?php echo $page; ?>">
                             <div class="news__button">
                                 <div class="news__button-content">
                                     <p>Подробнее</p>
